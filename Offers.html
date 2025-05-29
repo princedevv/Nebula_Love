@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Offers | Cosmic Connections</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Extracted Common CSS */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(ellipse at bottom, #0d0e1a 0%, #1a103d 100%);
+            color: #e0d6ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23b388ff" stroke-width="2"/><circle cx="8" cy="8" r="2" fill="%23b388ff"/></svg>'), auto;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 5px currentColor);
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            mix-blend-mode: screen;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(179, 136, 255, 0.7);
+        }
+        
+        .glow-box {
+            box-shadow: 0 0 20px rgba(179, 136, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-box:hover {
+            box-shadow: 0 0 30px rgba(179, 136, 255, 0.6);
+            transform: translateY(-5px);
+        }
+        
+        .holographic-card {
+            background: linear-gradient(145deg, rgba(45, 15, 70, 0.7) 0%, rgba(90, 20, 100, 0.5) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(179, 136, 255, 0.2);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .holographic-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(179, 136, 255, 0) 0%,
+                rgba(179, 136, 255, 0.1) 50%,
+                rgba(179, 136, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-30%, -30%); }
+            100% { transform: rotate(30deg) translate(30%, 30%); }
+        }
+        
+        .btn-cosmic {
+            background: linear-gradient(45deg, #7b2cbf, #c77dff);
+            border: none;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            padding: 12px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+        }
+        
+        .btn-cosmic:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(123, 44, 191, 0.8);
+        }
+        
+        .btn-cosmic::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .parallax {
+            transition: transform 0.3s ease-out;
+        }
+        
+        .audio-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(45, 15, 70, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(179, 136, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .audio-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(179, 136, 255, 0.6);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, rgba(26, 16, 61, 0.7) 0%, rgba(70, 16, 109, 0.5) 100%);
+            border-left: 3px solid #b388ff;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 20px rgba(179, 136, 255, 0.5));
+        }
+        
+        /* Offers page specific styles */
+        .offer-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            z-index: 1;
+        }
+        
+        .popular-tag {
+            background: linear-gradient(45deg, #f6d365, #fda085);
+        }
+        
+        .vip-tag {
+            background: linear-gradient(45deg, #a18cd1, #fbc2eb);
+        }
+        
+        .new-tag {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+        }
+        
+        .limited-tag {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+        }
+        
+        .btn-pulse {
+            animation: pulse 1.5s infinite;
+        }
+        
+        .btn-float {
+            animation: floating 4s ease-in-out infinite;
+        }
+        
+        .btn-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(123, 44, 191, 0.9);
+            }
+        }
+        
+        .offer-icon {
+            font-size: 1.75rem;
+            background: linear-gradient(45deg, #7b2cbf, #c77dff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cosmic Background Elements -->
+    <div class="cosmic-bg" id="cosmicBg"></div>
+    
+    <!-- Audio Toggle -->
+    <div class="audio-toggle" id="audioToggle">
+        <i class="fas fa-music text-purple-300"></i>
+        <audio id="backgroundAudio" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black bg-opacity-30">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold glow-text">
+                    <a href="index.html" class="hover:no-underline">
+                        <span class="text-purple-300">Nebula</span>
+                        <span class="text-pink-300">Nights</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="Offers.html" class="text-purple-200 hover:text-pink-300 transition duration-300 font-bold text-pink-300">Offers</a>
+                    <a href="deals.html" class="text-purple-200 hover:text-pink-300 transition duration-300">Deals</a>
+                    <a href="stories.html" class="text-purple-200 hover:text-pink-300 transition duration-300">Stories</a>
+                    <a href="Exclusive-offers.html" class="text-purple-200 hover:text-pink-300 transition duration-300">Exclusive Offers</a>
+                </div>
+                <button class="md:hidden text-purple-300">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Offers Page Content -->
+    <section class="relative pt-32 pb-20 overflow-hidden">
+        <div class="container mx-auto px-6 z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 glow-text">
+                    <span class="text-purple-300">Cosmic</span>
+                    <span class="text-pink-300">Premium Offers</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-purple-100">
+                    Explore our galaxy of exclusive dating experiences. Find the perfect connection among 30 celestial offers.
+                </p>
+                <div class="flex justify-center gap-4">
+                    <button class="btn-cosmic btn-pulse">
+                        <i class="fas fa-fire mr-2"></i> Hot Offers
+                    </button>
+                    <a href="Exclusive-offers.html">
+                    <button class="btn-cosmic bg-transparent border border-purple-400 hover:bg-purple-900 hover:bg-opacity-30 btn-float">
+                        <i class="fas fa-gem mr-2"></i> VIP Selection
+                    </button>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Offers Filter -->
+            <div class="holographic-card p-6 mb-12">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex-1 w-full">
+                        <input type="text" placeholder="Search offers..." class="w-full bg-purple-900 bg-opacity-30 border border-purple-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500 text-white placeholder-purple-400">
+                    </div>
+                    <div class="flex gap-2 flex-wrap justify-center">
+                        <button class="px-4 py-2 rounded-full bg-purple-900 bg-opacity-30 text-purple-200 text-sm hover:bg-pink-500 hover:text-white transition">All</button>
+                        <button class="px-4 py-2 rounded-full bg-purple-900 bg-opacity-30 text-purple-200 text-sm hover:bg-pink-500 hover:text-white transition">Romantic</button>
+                        <button class="px-4 py-2 rounded-full bg-purple-900 bg-opacity-30 text-purple-200 text-sm hover:bg-pink-500 hover:text-white transition">Adult</button>
+                        <button class="px-4 py-2 rounded-full bg-purple-900 bg-opacity-30 text-purple-200 text-sm hover:bg-pink-500 hover:text-white transition">LGBTQ+</button>
+                        <button class="px-4 py-2 rounded-full bg-purple-900 bg-opacity-30 text-purple-200 text-sm hover:bg-pink-500 hover:text-white transition">Premium</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Offers Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Offer 1 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0s;">
+                    <div class="offer-badge popular-tag">MOST POPULAR</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Chat-FWB</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ml-2 text-purple-200">4.7</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                    ChatFWB is the go-to platform for connecting users seeking casual friendships with benefits.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/6977?bo=2753,2754,2755,2756&popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-bolt mr-1"></i> Join
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 2 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.1s;">
+                    <div class="offer-badge vip-tag">VIP</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Cherry.tv</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                        No need for much details. Awarded the worlds best Porn web cam site that is just affordable.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.acrsmartcam.com/373499/7060?bo=2779,2778,2777,2776,2775&popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-lock-open mr-1"></i> Unlock
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 3 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.2s;">
+                    <div class="offer-badge new-tag">NEW</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">FILF</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">4.2</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+The Ultimate Gay Cam Experience Step into the most awarded gay cam site, with 300+ models online 24/7, featuring exclusive studios and interactive private and group shows. Enjoy a user-friendly interface and 24/7 customer support for seamless viewing. Plus, take advantage of token packages starting at just $5 (45 credits) up to $20 (300 credits), along with frequent promotions, discounts, and bonuses
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.acrsmartcam.com/373499/8873/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-rocket mr-1"></i> Launch
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 4 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.3s;">
+                    <div class="offer-badge limited-tag">LIMITED</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Royal Cams</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ml-2 text-purple-200">4.6</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+
+If you have European address Proxy or vpn, you should definitely check out Royal Cams.
+
+This Freemium cam site offers thousands of local cam models who are more than ready to seduce and entertain through public, private and group live cam shows. Dozens of new models (female and male) sign up every month, contributing to Royal Cams’ outstanding adult models catalog.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.acrsmartcam.com/373499/4152?bo=2779,2778,2777,2776,2775&popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-crown mr-1"></i> Upgrade
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 5 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.4s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">My free Cams</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-lock-open"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                        Unlimited access to exclusive adult content and private video sessions that will definitely leave you satified.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.amyfc.link/373499/779/11518?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-key mr-1"></i> Access
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 6 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.5s;">
+                    <div class="offer-badge vip-tag">VIP</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Bellessa Plus</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">4.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                        Private, one-on-one video sessions with our cosmic companions.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.slext1.com/373499/9973/38026?po=6532&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-play mr-1"></i> Start
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 7 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.6s;">
+                    <div class="offer-badge popular-tag">POPULAR</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1"> Only-Fans Diamond Content</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                       This offer is for the United States residents only (😉but you can use a good VPN with 100% anonimity 😉).
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.affmodel.com/373499/9768/38143?aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-sparkles mr-1"></i> GO!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 8 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.7s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">40sDating</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">3.7</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+Looking for a healthy dating Experience with a good reliable partner that's your match. This is obviously the best choice. Make the right affordable purchase as we'vemade it very cheap for you(that is if you click the button below).
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/9955/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-comments mr-1"></i> Let's Go!!!
+                        </button>
+                    </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 9 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.8s;">
+                    <div class="offer-badge new-tag">NEW</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Imlive</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-cloud-moon"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                       Always wanted to have that sexual Mindful, sensual experiences focusing on connection and pleasure? Well this is the mosst affordable platform you'll get on the internet ang guess what, we even made it more affordable for you😉✌.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.acrsmartcam.com/373499/2086/29040?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-magic mr-1"></i> Explore
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 10 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 0.9s;">
+                    <div class="offer-badge vip-tag">VIP</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Girlfriend GPT</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                        Ever tought of havig you own custon AI fantsy partner. well we've brought the best website to do that at an a unbelivable discount. Get your partner.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.slext1.com/373499/10046/0?aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-flask mr-1"></i> Go get your partner!!!.
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 11 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Swipey</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">4.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-star-and-crescent"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+Swipey.ai offers the new age of the AI girlfriend experience. The unique social feed that gives ""instagram like"" user experience making you also interact with AI twins of your favourite verified models.    
+               </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.slext1.com/373499/10100/0?aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-moon mr-1"></i> Sign-UP
+                        </button>
+                    </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 12 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.1s;">
+                    <div class="offer-badge limited-tag">LIMITED</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">99Hookups</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">3.8</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+Always lookin for girls around you that are naughty? Well search no more this is definitely the place for you😉✌.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/8210/28447?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-stopwatch mr-1"></i> Join
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 13 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.2s;">
+                    <div class="offer-badge popular-tag">POPULAR</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Benaughty</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-om"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+Never wait or beg for casual sex again. This website does the searching for you, then you do the collecting of partners aroung your areas( this is not available in all countries except USA, AU,CANADA, UK,FR, Italy and spain only)
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-spa mr-1"></i> Begin.
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 14 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.3s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Fuckbook pro</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ml-2 text-purple-200">4.6</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+
+Fuckbook is the leading casual dating platform designed for users looking for flirty encounters and adult fun With an easy sign-up process made just for you.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/10023/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-heart-circle-plus mr-1"></i> Connect
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 15 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.4s;">
+                    <div class="offer-badge new-tag">NEW</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">ALT.com</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-rainbow"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+ALT is an online dating platform that offers a wide range of services to people seeking casual sexual encounters, hookups, and other types of adult interactions.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/4040/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-flag mr-1"></i> Join
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 16 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.5s;">
+                    <div class="offer-badge vip-tag">VIP</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Thotchat.ai</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+ThotChat.ai is an adult AI chat platform where users create and interact with customizable virtual companions. With voice, image generation, and uncensored chat, it offers a highly engaging experience for mature audiences
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-lock mr-1"></i> Apply
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 17 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.6s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Instabang</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">4.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-candy-cane"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                        Just imagine your instagram but this for banging and smashing 😉.
+                        Its interface is next level and is probably the best you might get at this moment that will smile with your pocket.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/7908/27199?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-hand-holding-heart"></i> head over!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 18 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.7s;">
+                    <div class="offer-badge limited-tag">LIMITED</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Intimate.ai</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ml-2 text-purple-200">4.5</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-handcuffs"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                    
+Introducing Intimate.ai - the ultimate AI-powered chat platform for interactive dating simulation and companionship and an intimate AI for you😉✌.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.slext1.com/373499/9193/35173?aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-mask mr-1"></i> Go!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 19 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.8s;">
+                    <div class="offer-badge popular-tag">POPULAR</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Jerkmate</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-wine-glass-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+Jerkmate is currently the largest and best-loved Premium cam site, with over 150 million monthly visits worldwide.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbslr2.com/373499/8780/32516?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-user-clock mr-1"></i> Jerk off now!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 20 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 1.9s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">ASKME4DATE</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">3.8</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                       Name sounds funny right? But anyways this will help you get laid tonigt for free.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/7120?bo=2753,2754,2755,2756&popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-passport mr-1"></i> Get Laid!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 21 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2s;">
+                    <div class="offer-badge new-tag">NEW</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Camirada</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">4.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-vr-cardboard"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                       Have a session with the hottest latina models in spain, mexico, United States, Chille and Beyond.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.acrsmartcam.com/373499/9851/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-glasses mr-1"></i> Experience Now!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 22 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.1s;">
+                    <div class="offer-badge vip-tag">VIP</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Big 7</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+            cam for the top Dogs and celebrities. Speecial cam with celebrity like treament. Enjoy live sessions with Hot partners like you are in a VIP Room.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.acrsmartcam.com/373499/7071?bo=2779,2778,2777,2776,2775&popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-user-secret mr-1"></i> Go now!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 23 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.2s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">My free cam</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ml-2 text-purple-200">4.6</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                   One of the longest most esteemed porn cam website. Jerk off while you can freely.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.amyfc.link/373499/779/11518?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-hands-helping mr-1"></i> Get Help
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 24 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.3s;">
+                    <div class="offer-badge limited-tag">LIMITED</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Slushy</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">4.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-camera-retro"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                    Monitize your porn contents
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.affmodel.com/373499/7649?popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-smile mr-1"></i> Go!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 25 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.4s;">
+                    <div class="offer-badge popular-tag">POPULAR</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Fantasy AI</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                       Create an AI-generated personalized Super hot partners thats uit your desires
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.slext1.com/373499/7512?popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-robot mr-1"></i> Create now!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 26 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.5s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Jerkmate +</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">3.7</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                    Thanks for scrolling to this level. This is a Double rice removal from Jerkmate. Jerk-off now at a super affordable price made just for you.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbslr2.com/373499/6224/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-calendar-check mr-1"></i> Jerk-off now!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 27 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.6s;">
+                    <div class="offer-badge new-tag">NEW</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Hera Haven</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                    Create your very own Hentai Girlfriend or Boyfriend and costumise it to your choice and even positioning.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.slext1.com/373499/9867/0?aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-chart-line mr-1"></i> Go create Now!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 28 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.7s;">
+                    <div class="offer-badge vip-tag">VIP</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">Benaughty</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-umbrella-beach"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                        Looking for a dating site where you and other people can and will be fully naughty? Then this is the perfect place for you.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-plane mr-1"></i> Explore Naughtiness!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 29 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.8s;">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">C-date</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                                <span class="ml-2 text-purple-200">3.8</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                     This is the leading casual dating site for those who beside their career want to live their passionate fantasies with someone who shares the same spirit. Simple dating life without bothering your own life.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/9319/0?bo=2753,2754,2755,2756&po=6456&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-glow px-4 py-1 text-sm">
+                            <i class="fas fa-ticket-alt mr-1"></i> Let's go!! 
+                        </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Offer 30 -->
+                <div class="holographic-card p-6 relative floating" style="animation-delay: 2.9s;">
+                    <div class="offer-badge limited-tag">LIMITED</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-pink-300 mb-1">FlirtNlocal</h3>
+                            <div class="flex items-center text-yellow-300 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="ml-2 text-purple-200">5.0</span>
+                            </div>
+                        </div>
+                        <div class="offer-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-purple-100 text-sm mb-4">
+                    You might never see this anywhere but get this super website access at a price almost for free. Chat with the locals around you and find true love or a vry nice date close to you😉✌.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <a href="https://t.mbdaad.link/373499/6524?bo=2753,2754,2755,2756&popUnder=true&aff_sub5=SF_006OG000004lmDN">
+                        <button class="btn-cosmic btn-pulse px-4 py-1 text-sm">
+                            <i class="fas fa-handshake mr-1"></i> Grab offer!!!
+                        </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mega CTA Section -->
+            <div class="holographic-card p-12 mt-16 text-center relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-purple-600 opacity-20"></div>
+                <div class="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-pink-600 opacity-20"></div>
+                <h2 class="text-4xl font-bold text-pink-300 mb-6 glow-text">Ready for Cosmic Love?</h2>
+                <p class="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+                    Join thousands of members who've found meaningful connections through our platform.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="btn-cosmic pulse text-lg py-4 px-8">
+                        <i class="fas fa-rocket mr-2"></i> Pick Atleast one offer today.
+                    </button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black bg-opacity-40 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold glow-text mb-6 md:mb-0">
+                    <a href="index.html" class="hover:no-underline">
+                        <span class="text-purple-300">Cosmic</span>
+                        <span class="text-pink-300">Connections</span>
+                    </a>
+                </div>
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-purple-300 hover:text-pink-300 text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-pink-300 text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-pink-300 text-xl">
+                        <i class="fab fa-reddit-alien"></i>
+                    </a>
+                </div>
+                <div class="text-sm text-purple-300">
+                    &copy; 2023 Cosmic Connections. All rights reserved.
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-purple-900 text-center text-purple-400 text-xs">
+                <p>Disclaimer: This is an adult-oriented service. You must be 18+ to access our platform.</p>
+                <p class="mt-2">All connections are between consenting adults. Practice safe encounters.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Create cosmic background elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cosmicBg = document.getElementById('cosmicBg');
+            
+            // Create stars
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random properties
+                const size = Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = 2 + Math.random() * 5;
+                const delay = Math.random() * 5;
+                const color = `hsl(${Math.random() * 60 + 270}, 100%, ${70 + Math.random() * 30}%)`;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.color = color;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${delay}s`;
+                
+                cosmicBg.appendChild(star);
+            }
+            
+            // Create nebulas
+            for (let i = 0; i < 5; i++) {
+                const nebula = document.createElement('div');
+                nebula.className = 'nebula';
+                
+                const width = 200 + Math.random() * 300;
+                const height = 200 + Math.random() * 300;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const color1 = `hsl(${Math.random() * 60 + 270}, 100%, 50%)`;
+                const color2 = `hsl(${Math.random() * 60 + 300}, 100%, 50%)`;
+                
+                nebula.style.width = `${width}px`;
+                nebula.style.height = `${height}px`;
+                nebula.style.left = `${x}%`;
+                nebula.style.top = `${y}%`;
+                nebula.style.background = `radial-gradient(circle, ${color1}, ${color2})`;
+                
+                cosmicBg.appendChild(nebula);
+            }
+            
+            // Create planets
+            for (let i = 0; i < 3; i++) {
+                const planet = document.createElement('div');
+                planet.className = 'planet';
+                
+                const size = 50 + Math.random() * 100;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const color1 = `hsl(${Math.random() * 60 + 270}, 70%, 40%)`;
+                const color2 = `hsl(${Math.random() * 60 + 300}, 70%, 40%)`;
+                
+                planet.style.width = `${size}px`;
+                planet.style.height = `${size}px`;
+                planet.style.left = `${x}%`;
+                planet.style.top = `${y}%`;
+                planet.style.background = `radial-gradient(circle, ${color1}, ${color2})`;
+                
+                // Animate planets
+                gsap.to(planet, {
+                    x: `${Math.random() * 100 - 50}px`,
+                    y: `${Math.random() * 100 - 50}px`,
+                    duration: 20 + Math.random() * 20,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+                
+                cosmicBg.appendChild(planet);
+            }
+            
+            // Audio toggle
+            const audioToggle = document.getElementById('audioToggle');
+            const backgroundAudio = document.getElementById('backgroundAudio');
+            
+            audioToggle.addEventListener('click', function() {
+                if (backgroundAudio.paused) {
+                    backgroundAudio.play();
+                    audioToggle.innerHTML = '<i class="fas fa-volume-up text-purple-300"></i>';
+                } else {
+                    backgroundAudio.pause();
+                    audioToggle.innerHTML = '<i class="fas fa-volume-mute text-purple-300"></i>';
+                }
+            });
+            
+            // Scroll animations
+            ScrollReveal().reveal('.holographic-card', {
+                delay: 200,
+                distance: '50px',
+                origin: 'bottom',
+                interval: 100,
+                easing: 'cubic-bezier(0.5, 0, 0, 1)',
+                opacity: 0
+            });
+            
+            // Parallax effect
+            document.addEventListener('mousemove', function(e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                const stars = document.querySelectorAll('.star');
+                stars.forEach((star, index) => {
+                    const speed = 0.5 + (index / stars.length);
+                    const xMovement = (x - 0.5) * 20 * speed;
+                    const yMovement = (y - 0.5) * 20 * speed;
+                    
+                    star.style.transform = `translate(${xMovement}px, ${yMovement}px)`;
+                });
+            });
+            
+            // Floating animation for cards
+            const floatingCards = document.querySelectorAll('.floating');
+            floatingCards.forEach(card => {
+                const delay = parseFloat(card.style.animationDelay || '0');
+                gsap.to(card, {
+                    y: -20,
+                    duration: 3,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: delay
+                });
+            });
+            
+            // Button animations
+            const pulseButtons = document.querySelectorAll('.btn-pulse');
+            pulseButtons.forEach(btn => {
+                gsap.to(btn, {
+                    scale: 1.05,
+                    duration: 1,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "power1.inOut"
+                });
+            });
+            
+            const floatButtons = document.querySelectorAll('.btn-float');
+            floatButtons.forEach(btn => {
+                gsap.to(btn, {
+                    y: -10,
+                    duration: 2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            });
+            
+            const glowButtons = document.querySelectorAll('.btn-glow');
+            glowButtons.forEach(btn => {
+                gsap.to(btn, {
+                    boxShadow: '0 0 25px rgba(123, 44, 191, 0.9)',
+                    duration: 1.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            });
+        });
+    </script>
+</body>
+</html>

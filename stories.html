@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories | Cosmic Connections</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Common CSS from original */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(ellipse at bottom, #0d0e1a 0%, #1a103d 100%);
+            color: #e0d6ff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23b388ff" stroke-width="2"/><circle cx="8" cy="8" r="2" fill="%23b388ff"/></svg>'), auto;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 5px currentColor);
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.5;
+            mix-blend-mode: screen;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(179, 136, 255, 0.7);
+        }
+        
+        .glow-box {
+            box-shadow: 0 0 20px rgba(179, 136, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-box:hover {
+            box-shadow: 0 0 30px rgba(179, 136, 255, 0.6);
+            transform: translateY(-5px);
+        }
+        
+        .holographic-card {
+            background: linear-gradient(145deg, rgba(45, 15, 70, 0.7) 0%, rgba(90, 20, 100, 0.5) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(179, 136, 255, 0.2);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .holographic-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(179, 136, 255, 0) 0%,
+                rgba(179, 136, 255, 0.1) 50%,
+                rgba(179, 136, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-30%, -30%); }
+            100% { transform: rotate(30deg) translate(30%, 30%); }
+        }
+        
+        .btn-cosmic {
+            background: linear-gradient(45deg, #7b2cbf, #c77dff);
+            border: none;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            padding: 12px 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+        }
+        
+        .btn-cosmic:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(123, 44, 191, 0.8);
+        }
+        
+        .btn-cosmic::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .parallax {
+            transition: transform 0.3s ease-out;
+        }
+        
+        .audio-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(45, 15, 70, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(179, 136, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .audio-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(179, 136, 255, 0.6);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, rgba(26, 16, 61, 0.7) 0%, rgba(70, 16, 109, 0.5) 100%);
+            border-left: 3px solid #b388ff;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            filter: drop-shadow(0 0 20px rgba(179, 136, 255, 0.5));
+        }
+        
+        /* Stories-specific styles */
+        .story-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #b388ff;
+            box-shadow: 0 0 20px rgba(179, 136, 255, 0.5);
+        }
+        
+        .story-quote {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .story-quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 60px;
+            color: rgba(179, 136, 255, 0.2);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #7b2cbf, #c77dff);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #b388ff;
+            box-shadow: 0 0 10px rgba(179, 136, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cosmic Background Elements -->
+    <div class="cosmic-bg" id="cosmicBg"></div>
+    
+    <!-- Audio Toggle -->
+    <div class="audio-toggle" id="audioToggle">
+        <i class="fas fa-music text-purple-300"></i>
+        <audio id="backgroundAudio" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black bg-opacity-30">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold glow-text">
+                    <a href="index.html" class="hover:no-underline">
+                        <span class="text-purple-300">Nebula</span>
+                        <span class="text-pink-300">Nights</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="offers.html" class="text-purple-200 hover:text-pink-300 transition duration-300">Offers</a>
+                    <a href="deals.html" class="text-purple-200 hover:text-pink-300 transition duration-300">Deals</a>
+                    <a href="stories.html" class="text-purple-200 hover:text-pink-300 transition duration-300 font-bold text-pink-300">Stories</a>
+                    <a href="Exclusive-offers.html" class="text-purple-200 hover:text-pink-300 transition duration-300">Exclusive Offers</a>
+                </div>
+                <button class="md:hidden text-purple-300">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Stories Page Content -->
+    <section class="relative pt-32 pb-20 flex items-center justify-center overflow-hidden">
+        <div class="container mx-auto px-6 z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 glow-text">
+                    <span class="text-purple-300">Cosmic</span>
+                    <span class="text-pink-300">Love Stories</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-purple-100">
+                    Real connections made through our platform. Read how souls found each other across the stars.
+                </p>
+            </div>
+            
+            <!-- Featured Story -->
+            <div class="holographic-card p-8 mb-16">
+                <div class="flex flex-col lg:flex-row items-center gap-8">
+                    <div class="flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                             alt="Featured Couple" class="story-image floating" style="animation-delay: 0s;">
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-pink-300 mb-4">Sarah & Mark's Cosmic Connection</h2>
+                        <div class="flex items-center mb-4">
+                            <div class="flex items-center text-yellow-300 mr-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-purple-200">Matched on March 15, 2023</span>
+                        </div>
+                        <p class="text-purple-100 mb-4 story-quote">
+                            We were both skeptical about online dating, but Cosmic Connections felt different from the start. Our first date lasted 8 hours - we couldn't stop talking! Six months later, we're planning our future together among the stars.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Story Timeline -->
+            <div class="timeline">
+                <!-- Story 1 -->
+                <div class="timeline-item mb-16">
+                    <div class="holographic-card p-8">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                                     alt="Alex" class="story-image floating" style="animation-delay: 0.5s;">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-pink-300 mb-2">Alex's Journey to Self-Discovery</h3>
+                                <div class="flex items-center mb-4">
+                                    <div class="flex items-center text-yellow-300 text-sm mr-4">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-purple-200 text-sm">VIP Member since 2022</span>
+                                </div>
+                                <p class="text-purple-100 mb-4 story-quote">
+                                    I joined Cosmic Connections after a difficult divorce, not expecting much. The platform introduced me to people who helped me rediscover my confidence and explore sides of myself I'd suppressed for years. The connections I've made have been transformative.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Story 2 -->
+                <div class="timeline-item mb-16">
+                    <div class="holographic-card p-8">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                                     alt="Mia" class="story-image floating" style="animation-delay: 1s;">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-pink-300 mb-2">Mia's Polyamorous Adventure</h3>
+                                <div class="flex items-center mb-4">
+                                    <div class="flex items-center text-yellow-300 text-sm mr-4">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-purple-200 text-sm">Diamond Member</span>
+                                </div>
+                                <p class="text-purple-100 mb-4 story-quote">
+                                    As someone exploring polyamory, finding understanding partners was challenging. Cosmic Connections' detailed matching system helped me connect with like-minded individuals. Now I'm in two loving relationships that complement each other beautifully.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Story 3 -->
+                <div class="timeline-item mb-16">
+                    <div class="holographic-card p-8">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                                     alt="James & David" class="story-image floating" style="animation-delay: 1.5s;">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-pink-300 mb-2">James & David's Long-Distance Love</h3>
+                                <div class="flex items-center mb-4">
+                                    <div class="flex items-center text-yellow-300 text-sm mr-4">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-purple-200 text-sm">Matched across continents</span>
+                                </div>
+                                <p class="text-purple-100 mb-4 story-quote">
+                                    Living in different countries, we never would have met without Cosmic Connections. The platform's video date feature helped us build a connection before we ever met in person. Now we're closing the distance next month!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Story 4 -->
+                <div class="timeline-item">
+                    <div class="holographic-card p-8">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                                     alt="Elena" class="story-image floating" style="animation-delay: 2s;">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-pink-300 mb-2">Elena's Fantasy Fulfillment</h3>
+                                <div class="flex items-center mb-4">
+                                    <div class="flex items-center text-yellow-300 text-sm mr-4">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-purple-200 text-sm">Nebula Nights Member</span>
+                                </div>
+                                <p class="text-purple-100 mb-4 story-quote">
+                                    I had specific fantasies I was too shy to explore. The discreet, judgment-free environment of Cosmic Connections helped me find partners who not only accepted but celebrated my desires. The concierge service arranged the perfect weekend that exceeded all my expectations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA Section -->
+            <div class="holographic-card p-12 mt-16 text-center">
+                <h2 class="text-3xl font-bold text-pink-300 mb-6">Ready to Write Your Own Cosmic Story?</h2>
+                <p class="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+                    Join thousands of members who've found meaningful connections through our platform by exploring and getting to our offers.
+                </p>
+                <a href="Offers.html">
+                <button class="btn-cosmic pulse mx-auto">
+                    <i class="fas fa-rocket mr-2"></i> Start Your Cosmic Fury
+                </button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black bg-opacity-40 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold glow-text mb-6 md:mb-0">
+                    <a href="index.html" class="hover:no-underline">
+                        <span class="text-purple-300">Nebula</span>
+                        <span class="text-pink-300">Nights</span>
+                    </a>
+                </div>
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-purple-300 hover:text-pink-300 text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-pink-300 text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-pink-300 text-xl">
+                        <i class="fab fa-reddit-alien"></i>
+                    </a>
+                </div>
+                <div class="text-sm text-purple-300">
+                    &copy; 2023 Cosmic Connections. All rights reserved.
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-purple-900 text-center text-purple-400 text-xs">
+                <p>Disclaimer: This is an adult-oriented service. You must be 18+ to access our platform.</p>
+                <p class="mt-2">All connections are between consenting adults. Practice safe encounters.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Create cosmic background elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cosmicBg = document.getElementById('cosmicBg');
+            
+            // Create stars
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random properties
+                const size = Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = 2 + Math.random() * 5;
+                const delay = Math.random() * 5;
+                const color = `hsl(${Math.random() * 60 + 270}, 100%, ${70 + Math.random() * 30}%)`;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.color = color;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${delay}s`;
+                
+                cosmicBg.appendChild(star);
+            }
+            
+            // Create nebulas
+            for (let i = 0; i < 5; i++) {
+                const nebula = document.createElement('div');
+                nebula.className = 'nebula';
+                
+                const width = 200 + Math.random() * 300;
+                const height = 200 + Math.random() * 300;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const color1 = `hsl(${Math.random() * 60 + 270}, 100%, 50%)`;
+                const color2 = `hsl(${Math.random() * 60 + 300}, 100%, 50%)`;
+                
+                nebula.style.width = `${width}px`;
+                nebula.style.height = `${height}px`;
+                nebula.style.left = `${x}%`;
+                nebula.style.top = `${y}%`;
+                nebula.style.background = `radial-gradient(circle, ${color1}, ${color2})`;
+                
+                cosmicBg.appendChild(nebula);
+            }
+            
+            // Create planets
+            for (let i = 0; i < 3; i++) {
+                const planet = document.createElement('div');
+                planet.className = 'planet';
+                
+                const size = 50 + Math.random() * 100;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const color1 = `hsl(${Math.random() * 60 + 270}, 70%, 40%)`;
+                const color2 = `hsl(${Math.random() * 60 + 300}, 70%, 40%)`;
+                
+                planet.style.width = `${size}px`;
+                planet.style.height = `${size}px`;
+                planet.style.left = `${x}%`;
+                planet.style.top = `${y}%`;
+                planet.style.background = `radial-gradient(circle, ${color1}, ${color2})`;
+                
+                // Animate planets
+                gsap.to(planet, {
+                    x: `${Math.random() * 100 - 50}px`,
+                    y: `${Math.random() * 100 - 50}px`,
+                    duration: 20 + Math.random() * 20,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+                
+                cosmicBg.appendChild(planet);
+            }
+            
+            // Audio toggle
+            const audioToggle = document.getElementById('audioToggle');
+            const backgroundAudio = document.getElementById('backgroundAudio');
+            
+            audioToggle.addEventListener('click', function() {
+                if (backgroundAudio.paused) {
+                    backgroundAudio.play();
+                    audioToggle.innerHTML = '<i class="fas fa-volume-up text-purple-300"></i>';
+                } else {
+                    backgroundAudio.pause();
+                    audioToggle.innerHTML = '<i class="fas fa-volume-mute text-purple-300"></i>';
+                }
+            });
+            
+            // Scroll animations
+            ScrollReveal().reveal('.holographic-card', {
+                delay: 200,
+                distance: '50px',
+                origin: 'bottom',
+                interval: 100,
+                easing: 'cubic-bezier(0.5, 0, 0, 1)',
+                opacity: 0
+            });
+            
+            // Parallax effect
+            document.addEventListener('mousemove', function(e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                const stars = document.querySelectorAll('.star');
+                stars.forEach((star, index) => {
+                    const speed = 0.5 + (index / stars.length);
+                    const xMovement = (x - 0.5) * 20 * speed;
+                    const yMovement = (y - 0.5) * 20 * speed;
+                    
+                    star.style.transform = `translate(${xMovement}px, ${yMovement}px)`;
+                });
+            });
+            
+            // Floating animation for cards
+            const floatingCards = document.querySelectorAll('.floating');
+            floatingCards.forEach(card => {
+                const delay = parseFloat(card.style.animationDelay || '0');
+                gsap.to(card, {
+                    y: -20,
+                    duration: 3,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: delay
+                });
+            });
+        });
+    </script>
+</body>
+</html>
